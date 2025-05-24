@@ -9,8 +9,10 @@ public:
     // Constructor
     Neuron(double val);
 
+    // Setters
+
     /*
-    I am gopnna use a sigmoid function to actiuvate a neuyron
+    I am gopnna use a sigmoid function to activate a neuron
     because it is easy to get it's derivative
     f(x) = x / (1 + |x|)
     */
@@ -22,10 +24,11 @@ public:
     */
     void derive();
 
+
     //  Getters
     double getVal() { return this->val; }
     double getActivatedVal() { return this->activatedVal; }
-    double getDerivedVaL() { return this->derivedVal; }
+    double getDerivedVal() { return this->derivedVal; }
 
 private:
     // The current value of the neuron
