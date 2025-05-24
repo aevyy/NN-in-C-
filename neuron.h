@@ -18,7 +18,7 @@ public:
 
     /*
     derivative of fast sigmoid function
-    f'(x) = f(x) - (1 - f(x))
+    f'(x) = f(x) * (1 - f(x))
     */
     void derive();
 
