@@ -22,6 +22,14 @@ public:
 
     // getter function to get value based on the indices
     double getValue(int r, int c);
+
+    // Getter functions to get num rows and num cols
+    int getNumRows() { return this->numRows; }
+    int getNumCols() { return this->numCols; }
+
+    // Lets add a function to print the values in the matrix
+    void printToConsole();
+
 private:
     // I would like to keep track of
     // number of rows and columns
