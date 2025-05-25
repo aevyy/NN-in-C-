@@ -1,5 +1,4 @@
-#ifndef _MATRIX_H_
-#define _MATRIX_H_
+#pragma once
 
 #include <iostream>
 #include <vector>
@@ -39,5 +38,3 @@ private:
     // Lets create a vector of vectors (which makes it a matrix)
     std::vector < std::vector<double> > values;
 };
-
-#endif

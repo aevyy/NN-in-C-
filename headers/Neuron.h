@@ -1,5 +1,4 @@
-#ifndef _NEURON_H_
-#define _NEURON_H_4
+#pragma once
 
 #include <iostream>
 
@@ -10,6 +9,7 @@ public:
     Neuron(double val);
 
     // Setters
+    void setVal(double val);
 
     /*
     I am gopnna use a sigmoid function to activate a neuron
@@ -43,6 +43,3 @@ private:
 
 
 };
-
-
-#endif

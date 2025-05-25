@@ -1,4 +1,4 @@
-#include "../header/Neuron.h"
+#include "../headers/Neuron.h"
 #include <cmath>
 
 void Neuron::setVal(double val) {
