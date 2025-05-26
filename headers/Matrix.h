@@ -17,10 +17,10 @@ public:
     // Setter function where r and c
     // are the indices of row and the column
     // where I want my value v to be set
-    void setValue(int r, int c, double v);
+    void setValue(int r, int c, double v) { this->values.at(r).at(c) = v; }
 
     // getter function to get value based on the indices
-    double getValue(int r, int c);
+    double getValue(int r, int c) { return this->values.at(r).at(c); }
 
     // Getter functions to get num rows and num cols
     int getNumRows() { return this->numRows; }

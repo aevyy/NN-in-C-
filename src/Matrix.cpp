@@ -2,6 +2,18 @@
 #include <random>
 #include <vector>
 
+// Lets make a transpose function that
+// interchanges the rows with columns
+Matrix *Matrix::transpose() {
+    Matrix *m = new Matrix(this->numCols, this->numRows, false);
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            m->setValue(j, i, this->getValue(i, j));
+        }
+    }
+    return m;
+}
+
 double Matrix::generateRandomNumber() {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -9,6 +21,7 @@ double Matrix::generateRandomNumber() {
 
     return dis(gen);
 }
+
 
 // Function to print the elements in the matrix
 // Mainly, this function is gonna help me debug
