@@ -1,7 +1,26 @@
 #include "../headers/NeuralNetwork.h"
 
+void NeuralNetwork::printToConsole() {
+    for (int i = 0; i < this->layers.size(); i++) {
+
+        std::cout << "LAYER: " << i << std::endl;
+
+        if (i == 0) {
+            Matrix *m = this->layers.at(i)->matrixifyVals();
+            m->printToConsole();
+        } else {
+            Matrix *m = this->layers.at(i)->matrixifyActivatedVals();
+            m->printToConsole();
+        }
+    }
+}
+
 void NeuralNetwork::setCurrentInput(std::vector<double> input) {
     this->input = input;
+
+    for (int i = 0; i < input.size(); i++) {
+        this->layers.at(0)->setVal(i, input.at(i));
+    }
 }
 
 // Constructor for NeuralNetwork class

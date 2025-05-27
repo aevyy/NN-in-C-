@@ -14,6 +14,9 @@ public:
     // Setter
     void setCurrentInput(std::vector<double> input);
 
+    // printing function
+    void printToConsole();
+
 private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;
