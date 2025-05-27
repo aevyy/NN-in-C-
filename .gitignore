@@ -1,5 +1,19 @@
-# Build Outputs
-/*.exe
+# Build outputs
+/build/
+/main
+*.o
+*.out
+*.exe
 
-# VSCode
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# VSCode settings
 .vscode/
+
+# macOS / Linux / Windows system files
+.DS_Store
+Thumbs.db
