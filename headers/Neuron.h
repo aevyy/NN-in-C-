@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 class Neuron {
 public:
 
@@ -23,7 +21,6 @@ public:
     f'(x) = f(x) * (1 - f(x))
     */
     void derive();
-
 
     //  Getters
     double getVal() { return this->val; }
