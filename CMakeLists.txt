@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 project(NeuralNetworkCPP)
 
-# Use C++17
+# Using C++17
 set(CMAKE_CXX_STANDARD 17)
 
-# Include the header files directory
+# The header files directory
 include_directories(headers)
 
-# Set the source files
+# The source files
 set(SOURCES
     src/main.cpp
     src/Neuron.cpp
@@ -16,5 +16,5 @@ set(SOURCES
     src/NeuralNetwork.cpp
 )
 
-# Define the executable
+# Defining the executable
 add_executable(main ${SOURCES})
