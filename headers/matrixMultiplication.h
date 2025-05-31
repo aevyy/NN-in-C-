@@ -14,5 +14,5 @@ namespace utils {
 
     private:
         Matrix *a, *b, *c;
-    }
+    };
 }
