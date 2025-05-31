@@ -4,12 +4,12 @@
 #include <vector>
 #include <assert.h>
 
-#include "./matrix.h"
+#include "../matrix.h"
 
 namespace utils {
-    class multiplyMatrix {
+    class MultiplyMatrix {
     public:
-        multiplyMatrix(Matrix *a, Matrix *b);
+        MultiplyMatrix(Matrix *a, Matrix *b);
         Matrix* execute();
 
     private:
