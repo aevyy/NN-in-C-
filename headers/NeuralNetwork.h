@@ -18,6 +18,11 @@ public:
     // Setter
     void setCurrentInput(std::vector<double> input);
 
+    // Well, another setter
+    void setNeuronValue(int layerIndex, int neuronIndex, double val) {
+        this->layers.at(layerIndex)->setVal(neuronIndex, val);
+    }
+
     // printing function
     void printToConsole();
 
