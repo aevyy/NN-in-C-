@@ -4,7 +4,7 @@ utils::MatrixToVector::MatrixToVector(Matrix *a) {
     this->a = a;
 }
 
-std::vector<double> *utils::MatrixToVector::execute() {
+std::vector<double> utils::MatrixToVector::execute() {
     std::vector<double> result;
 
     for (int r = 0; r < a->getNumRows(); r++) {
@@ -12,4 +12,5 @@ std::vector<double> *utils::MatrixToVector::execute() {
             result.push_back(a->getValue(r, c));
         }
     }
+    return result;
 }
