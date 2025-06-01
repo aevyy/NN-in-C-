@@ -11,9 +11,8 @@ void NeuralNetwork::feedForward() {
         Matrix *b = this->getWeightMatrix(i);
         Matrix *c = (new utils::MultiplyMatrix(a, b))->execute();
 
-        std::vector<double> vals;
         for (int c_index = 0; c_index < c->getNumCols(); c_index++) {
-            vals.push_back(c->getValue(0, c_index));
+            this->setNeuronValue(i + 1, c_index, c->getValue(0, c_index));
         }
     }
 }

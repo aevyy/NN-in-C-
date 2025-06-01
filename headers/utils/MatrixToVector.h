@@ -10,7 +10,7 @@ namespace utils {
     class MatrixToVector {
     public: 
         MatrixToVector(Matrix *a);
-        std::vector<double> *execute();
+        std::vector<double> execute();
 
     private:
         Matrix *a;
