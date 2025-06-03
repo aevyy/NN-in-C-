@@ -52,8 +52,8 @@ private:
     std::vector<Layer *> layers;
     std::vector<Matrix *> weightMetrices;
     std::vector<double> input;
-    std::vector<double *> target;
+    std::vector<double> target;
     double error;
-    std::vector<double *> errors;
-    std::vector<double *> historicalErrors;
+    std::vector<double> errors;
+    std::vector<double> historicalErrors;
 };
