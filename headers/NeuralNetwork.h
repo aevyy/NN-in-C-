@@ -23,6 +23,9 @@ public:
         this->layers.at(layerIndex)->setVal(neuronIndex, val);
     }
 
+    // Another setter
+    void setErrors();
+
     // printing function
     void printToConsole();
 

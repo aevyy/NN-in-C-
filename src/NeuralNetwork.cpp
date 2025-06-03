@@ -1,5 +1,28 @@
 #include "../headers/NeuralNetwork.h"
 
+void NeuralNetwork::setErrors() {
+    if (this->target.size() == 0) {
+        std::cerr << "No target for this Neural Network." << std::endl;
+        assert(false);
+    }
+
+    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNumNeurons()) {
+        std::cerr << "Target size is not same at the output layer size: "
+        << this->layers.at(this->layers.size() - 1)->getNumNeurons() << std::endl;
+        assert(false);
+    }
+
+    this->error = 0.00;
+    int outputLayerIndex = this->layers.size() - 1;
+    std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNumNeurons();
+    for (int i = 0; i < target.size(); i++) {
+        double tempErr = (outputNeurons.at(i) ->getActivatedVal() -target.at(i));
+        errors.at(i) = tempErr;
+        this->error += tempErr;
+    }
+    historicalErrors.push_back(this->error);
+}
+
 void NeuralNetwork::feedForward() {
     for (int i = 0; i < (this->layers.size() - 1); i++) {
         Matrix *a = this->getNeuronMatrix(i);
