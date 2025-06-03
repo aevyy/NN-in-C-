@@ -12,6 +12,8 @@ public:
 
     // setter
     void setVal(int index, double val);
+    void setNeuron(std::vector<Neuron *> neurons) { this->neurons = neurons; }
+
 
     // A function to convert a vector into 1 by n matrix
     Matrix *matrixifyVals();
@@ -19,7 +21,7 @@ public:
     Matrix *matrixifyDerivedVals();
 
     // Getters
-    int getNumNeurons() { return size; }
+    std::vector<Neuron *> getNeurons() { return this->neurons; }
 
 private:
     int size;   // This is the size of neurons vector

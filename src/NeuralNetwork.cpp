@@ -6,15 +6,15 @@ void NeuralNetwork::setErrors() {
         assert(false);
     }
 
-    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNumNeurons()) {
+    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
         std::cerr << "Target size is not same at the output layer size: "
-        << this->layers.at(this->layers.size() - 1)->getNumNeurons() << std::endl;
+        << this->layers.at(this->layers.size() - 1)->getNeurons().size() << std::endl;
         assert(false);
     }
 
     this->error = 0.00;
     int outputLayerIndex = this->layers.size() - 1;
-    std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNumNeurons();
+    std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
     for (int i = 0; i < target.size(); i++) {
         double tempErr = (outputNeurons.at(i) ->getActivatedVal() -target.at(i));
         errors.at(i) = tempErr;
