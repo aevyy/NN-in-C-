@@ -45,6 +45,9 @@ public:
         return this->weightMetrices.at(index);
     }
 
+    double getTotalError() { return this->error; }
+    std::vector <double> getErrors() { return this->errors; }
+
 private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;
