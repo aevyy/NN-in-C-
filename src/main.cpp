@@ -25,7 +25,7 @@ int main() {
 
     cout << ">>>About to call feedForward()\n";
     nn->feedForward();
-    cout << ">>>Returned from FeedForward.\n";
+    cout << ">>>Returned from feedForward()\n";
 
     cout << ">>> About to call setErrors() \n";
     nn->setErrors();
