@@ -15,8 +15,9 @@ public:
     // Constructor
     NeuralNetwork(std::vector<int> topology);
 
-    // Setter
+    // Setters
     void setCurrentInput(std::vector<double> input);
+    void setCurrentTarget(std::vector<double> target);
 
     // Well, another setter
     void setNeuronValue(int layerIndex, int neuronIndex, double val) {

@@ -6,6 +6,7 @@ void NeuralNetwork::setErrors() {
         assert(false);
     }
 
+    // The target size should be the same size as the output layer
     if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
         std::cerr << "Target size is not same at the output layer size: "
         << this->layers.at(this->layers.size() - 1)->getNeurons().size() << std::endl;
@@ -15,11 +16,17 @@ void NeuralNetwork::setErrors() {
     this->error = 0.00;
     int outputLayerIndex = this->layers.size() - 1;
     std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
+
+    // I am resizing the errors before filing to prevent errors
+    this->errors.resize(target.size());
+    
     for (int i = 0; i < target.size(); i++) {
-        double tempErr = (outputNeurons.at(i) ->getActivatedVal() -target.at(i));
+        // I have used the simplest cost function to determine the error
+        double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
         errors.at(i) = tempErr;
         this->error += tempErr;
     }
+    // Keepint track of all the errors on each iteration
     historicalErrors.push_back(this->error);
 }
 
@@ -69,6 +76,12 @@ void NeuralNetwork::setCurrentInput(std::vector<double> input) {
         this->layers.at(0)->setVal(i, input.at(i));
     }
 }
+
+void NeuralNetwork::setCurrentTarget(std::vector<double> target) {
+    this->target = target;
+}
+
+
 
 // Constructor for NeuralNetwork class
 NeuralNetwork::NeuralNetwork(std::vector<int> topology) {
