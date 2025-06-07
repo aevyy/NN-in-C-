@@ -17,11 +17,10 @@ void NeuralNetwork::backPropagation() {
     int lastHiddenLayerIndex        = outputLayerIndex - 1;
     Layer *lastHiddenLayer          = this->layers.at(lastHiddenLayerIndex);
     Matrix *weightOutputToHidden    = this->weightMatrices.at(lastHiddenLayerIndex);
-    Matrix *deltaOutputToHidden     = new Matrix(
-                                        weightOutputToHidden->getNumRows(),
-                                        weightOutputToHidden->getNumCols(),
-                                        false
-                                    );
+    Matrix *deltaOutputToHidden     = (new utils::MultiplyMatrix(
+                                        gradientsYToZ->transpose(),
+                                        lastHiddenLayer->matrixifyActivatedVals()
+                                    ))->execute();
 
 //     // Moving from the last hidden layer down to the input layer
 //     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
