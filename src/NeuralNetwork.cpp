@@ -20,7 +20,7 @@ void NeuralNetwork::backPropagation() {
     Matrix *deltaOutputToHidden     = (new utils::MultiplyMatrix(
                                         gradientsYToZ->transpose(),
                                         lastHiddenLayer->matrixifyActivatedVals()
-                                    ))->execute();
+                                    ))->execute()->transpose();
 
 //     // Moving from the last hidden layer down to the input layer
 //     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
