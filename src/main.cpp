@@ -35,5 +35,8 @@ int main() {
     nn->printToConsole();
     cout << ">>> Returned from printToConsole()\n";
 
+
+    cout << "Total errors: " << nn->getTotalError();
+
     return 0;
 }

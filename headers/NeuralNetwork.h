@@ -30,6 +30,7 @@ public:
     void printToConsole();
 
     void feedForward();
+    void backPropagation();
     
     // Funcitons to get neuron matrices
     Matrix *getNeuronMatrix(int index) {
@@ -55,11 +56,12 @@ private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;
     int topologySize;
-    std::vector<Layer *> layers;
-    std::vector<Matrix *> weightMetrices;
-    std::vector<double> input;
-    std::vector<double> target;
-    double error;
-    std::vector<double> errors;
-    std::vector<double> historicalErrors;
+    std::vector<Layer *>    layers;
+    std::vector<Matrix *>   weightMetrices;
+    std::vector<Matrix *>   gradientMatrices;
+    std::vector<double>     input;
+    std::vector<double>     target;
+    double                  error;
+    std::vector<double>     errors;
+    std::vector<double>     historicalErrors;
 };
