@@ -46,7 +46,7 @@ public:
     }
 
     Matrix *getWeightMatrix(int index)  {
-        return this->weightMetrices.at(index);
+        return this->weightMatrices.at(index);
     }
 
     double getTotalError() { return this->error; }
@@ -57,7 +57,7 @@ private:
     std::vector<int> topology;
     int topologySize;
     std::vector<Layer *>    layers;
-    std::vector<Matrix *>   weightMetrices;
+    std::vector<Matrix *>   weightMatrices;
     std::vector<Matrix *>   gradientMatrices;
     std::vector<double>     input;
     std::vector<double>     target;

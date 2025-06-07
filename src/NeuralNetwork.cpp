@@ -1,5 +1,36 @@
 #include "../headers/NeuralNetwork.h"
 
+void NeuralNetwork::backPropagation() {
+    // Output to hidden
+    int outputLayerIndex        = this->layers.size()-1;
+    Matrix *derivedValuesYToZ   = this->layers.at(outputLayerIndex)->matrixifyDerivedVals();
+    // Creating a matrix of     dimentions 1 * size of output layer
+    Matrix *gradientsYToZ       = new Matrix(1, this->layers.at(outputLayerIndex)->getNeurons().size(), false);
+    
+    for (int i = 0; i < this->errors.size(); i++) {
+        double d = derivedValuesYToZ->getValue(1, i);
+        double e = this->errors.at(i);
+        double g = d * e;
+        gradientsYToZ->setValue(0, i, g);
+    }
+
+    int lastHiddenLayerIndex        = outputLayerIndex - 1;
+    Layer *lastHiddenLayer          = this->layers.at(lastHiddenLayerIndex);
+    Matrix *weightOutputToHidden    = this->weightMatrices.at(lastHiddenLayerIndex);
+    Matrix *deltaOutputToHidden     = new Matrix(
+                                        weightOutputToHidden->getNumRows(),
+                                        weightOutputToHidden->getNumCols(),
+                                        false
+                                    );
+
+//     // Moving from the last hidden layer down to the input layer
+//     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
+        
+//     }
+
+// 
+}
+
 void NeuralNetwork::setErrors() {
     if (this->target.size() == 0) {
         std::cerr << "No target for this Neural Network." << std::endl;
@@ -100,6 +131,6 @@ NeuralNetwork::NeuralNetwork(std::vector<int> topology) {
     for (int i = 0; i < (topologySize - 1); i++) {
         // Matrix dimentions: current layer size * next layer size
         Matrix *m = new Matrix(topology.at(i), topology.at(i+1), true);
-        this->weightMetrices.push_back(m);
+        this->weightMatrices.push_back(m);
     }
 }
