@@ -1,6 +1,7 @@
 #include "../headers/NeuralNetwork.h"
 
 void NeuralNetwork::backPropagation() {
+    std::vector <Matrix *> newWeights;
     // Output to hidden
     int outputLayerIndex        = this->layers.size()-1;
     Matrix *derivedValuesYToZ   = this->layers.at(outputLayerIndex)->matrixifyDerivedVals();
@@ -22,6 +23,22 @@ void NeuralNetwork::backPropagation() {
                                         lastHiddenLayer->matrixifyActivatedVals()
                                     ))->execute()->transpose();
 
+    Matrix *newWeightsOutputToHidden = new Matrix(
+        deltaOutputToHidden->getNumRows(),
+        deltaOutputToHidden->getNumCols(),
+        false
+    );
+
+    for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
+        for (int c = 0; c < deltaOutputToHidden->getNumCols(); c++) {
+            double originalWeight = weightOutputToHidden->getValue(r, c);
+            double deltaWeight = deltaOutputToHidden->getValue(r, c);
+            newWeightsOutputToHidden->setValue(r, c, (originalWeight - deltaWeight));
+        }
+    }
+
+    newWeights.push_back(newWeightsOutputToHidden);
+    
 //     // Moving from the last hidden layer down to the input layer
 //     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
         
