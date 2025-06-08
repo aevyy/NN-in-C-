@@ -9,7 +9,7 @@ void NeuralNetwork::backPropagation() {
     Matrix *gradientsYToZ       = new Matrix(1, this->layers.at(outputLayerIndex)->getNeurons().size(), false);
     
     for (int i = 0; i < this->errors.size(); i++) {
-        double d = derivedValuesYToZ->getValue(1, i);
+        double d = derivedValuesYToZ->getValue(0, i);
         double e = this->errors.at(i);
         double g = d * e;
         gradientsYToZ->setValue(0, i, g);
@@ -24,10 +24,10 @@ void NeuralNetwork::backPropagation() {
                                     ))->execute()->transpose();
 
     Matrix *newWeightsOutputToHidden = new Matrix(
-        deltaOutputToHidden->getNumRows(),
-        deltaOutputToHidden->getNumCols(),
-        false
-    );
+                                        deltaOutputToHidden->getNumRows(),
+                                        deltaOutputToHidden->getNumCols(),
+                                        false
+                                    );
 
     for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
         for (int c = 0; c < deltaOutputToHidden->getNumCols(); c++) {
@@ -38,20 +38,28 @@ void NeuralNetwork::backPropagation() {
     }
 
     newWeights.push_back(newWeightsOutputToHidden);
-    
-//     // Moving from the last hidden layer down to the input layer
-//     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
-        
-//     }
 
-// 
+    std::cout << "Output to hidden new weights: \n";
+    newWeightsOutputToHidden->printToConsole();
+    
+    // Moving from the last hidden layer down to the input layer
+    for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
+        
+    }
+
+
 }
 
 void NeuralNetwork::setErrors() {
-    if (this->target.size() == 0) {
-        std::cerr << "No target for this Neural Network." << std::endl;
-        assert(false);
-    }
+    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
+    std::cerr << ">>> DEBUG: target size = " << this->target.size()
+              << ", output layer size = "
+              << this->layers.at(this->layers.size() - 1)->getNeurons().size()
+              << std::endl;
+    std::cerr << "Target size is not same as output layer size." << std::endl;
+    assert(false);
+}
+
 
     // The target size should be the same size as the output layer
     if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {

@@ -36,7 +36,11 @@ int main() {
     cout << ">>> Returned from printToConsole()\n";
 
 
-    cout << "Total errors: " << nn->getTotalError();
+    cout << "Total errors: " << nn->getTotalError() << endl;
+
+    cout << ">>> About to call backPropagation()\n";
+    nn->backPropagation();
+    cout << ">>> Returned from backPropagation()\n";
 
     return 0;
 }

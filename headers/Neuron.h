@@ -1,5 +1,8 @@
 #pragma once
 
+#include <iostream>
+#include <cmath>
+
 class Neuron {
 public:
 
@@ -7,7 +10,7 @@ public:
     Neuron(double val);
 
     // Setters
-    void setVal(double val);
+    void setVal(double v);
 
     /*
     I am gopnna use a sigmoid function to activate a neuron
@@ -21,6 +24,7 @@ public:
     f'(x) = f(x) * (1 - f(x))
     */
     void derive();
+
 
     //  Getters
     double getVal() { return this->val; }
