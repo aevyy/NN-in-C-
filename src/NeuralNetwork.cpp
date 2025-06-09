@@ -44,7 +44,8 @@ void NeuralNetwork::backPropagation() {
     
     // Moving from the last hidden layer down to the input layer
     for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
-        
+        Layer *l                = this->layers.at(i);
+        Matrix *derivedHidden   = l->matrixifyDerivedVals();
     }
 
 
