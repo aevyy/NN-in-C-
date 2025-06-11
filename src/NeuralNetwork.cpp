@@ -42,13 +42,11 @@ void NeuralNetwork::backPropagation() {
     std::cout << "Output to hidden new weights: \n";
     newWeightsOutputToHidden->printToConsole();
     
-    // Moving from the last hidden layer down to the input layer
-    for (int i = (lastHiddenLayerIndex); i >= 0; i--) {
+    // Moving from the last hidden layer down to the first
+    for (int i = (lastHiddenLayerIndex); i > 0; i--) {
         Layer *l                = this->layers.at(i);
         Matrix *derivedHidden   = l->matrixifyDerivedVals();
     }
-
-
 }
 
 void NeuralNetwork::setErrors() {
@@ -82,7 +80,7 @@ void NeuralNetwork::setErrors() {
         errors.at(i) = tempErr;
         this->error += tempErr;
     }
-    // Keepint track of all the errors on each iteration
+    // Keeping track of all the errors on each iteration
     historicalErrors.push_back(this->error);
 }
 
