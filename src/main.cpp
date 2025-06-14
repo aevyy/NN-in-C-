@@ -23,24 +23,27 @@ int main() {
     nn->setCurrentTarget(input);
     cout << ">>> Returned from setCurrentTarget()\n";
 
-    cout << ">>>About to call feedForward()\n";
-    nn->feedForward();
-    cout << ">>>Returned from feedForward()\n";
+    // Training  process
+    // Lets run it 10 times to test if the error is decreasing
+    for (int i = 0; i < 10; i++) {
+        // cout << ">>>About to call feedForward()\n";
+        nn->feedForward();
+        // cout << ">>>Returned from feedForward()\n";
 
-    cout << ">>> About to call setErrors() \n";
-    nn->setErrors();
-    cout << ">>>Returned from setErrors()\n";
+        // cout << ">>> About to call setErrors() \n";
+        nn->setErrors();
+        // cout << ">>>Returned from setErrors()\n";
 
-    cout << ">>> About to call printToConsole()\n";
-    nn->printToConsole();
-    cout << ">>> Returned from printToConsole()\n";
+        // cout << ">>> About to call printToConsole()\n";
+        // nn->printToConsole();
+        // cout << ">>> Returned from printToConsole()\n";
+        cout << "Epoch: " << i + 1 << endl;
+        cout << "Total errors: " << nn->getTotalError() << endl;
 
-
-    cout << "Total errors: " << nn->getTotalError() << endl;
-
-    cout << ">>> About to call backPropagation()\n";
-    nn->backPropagation();
-    cout << ">>> Returned from backPropagation()\n";
+        // cout << ">>> About to call backPropagation()\n";
+        nn->backPropagation();
+        // cout << ">>> Returned from backPropagation()\n";
+    }
 
     return 0;
 }

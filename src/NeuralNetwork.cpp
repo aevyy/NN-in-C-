@@ -63,7 +63,7 @@ void NeuralNetwork::backPropagation() {
         for (int r = 0; r < weightMatrix->getNumRows(); r++) {
             double sum = 0;
             for (int c = 0; c < weightMatrix->getNumCols(); c++) {
-                double p = gradient->getValue(r, c) * weightMatrix->getValue(r, c);
+                double p = gradient->getValue(0, c) * weightMatrix->getValue(r, c); // FIX: Replaced (r, c) with (0, c).
                 sum += p;
             }
 
@@ -91,14 +91,22 @@ void NeuralNetwork::backPropagation() {
             }
         }
 
-        newWeights.push_back(newWeightsHidden);
         gradient = new Matrix(derivedGradients->getNumRows(), derivedGradients->getNumCols(), false);
         for (int r = 0; r < derivedGradients->getNumRows(); r++) {
             for (int c = 0; c < derivedGradients->getNumCols(); c++) {
                 gradient->setValue(r, c, derivedGradients->getValue(r, c));
             }
         }
+
+        newWeights.push_back(newWeightsHidden);
     }
+    // std::cout << "Done with back prop" << std::endl;
+    // std::cout << "New weights size: " << newWeights.size() << std::endl;
+    // std::cout << "Old weights size: " << this->weightMatrices.size() << std::endl;
+
+    // Reversing the new weights (function from <algorithm>)
+    std::reverse(newWeights.begin(), newWeights.end());
+    this->weightMatrices = newWeights;
 }
 
 void NeuralNetwork::setErrors() {
