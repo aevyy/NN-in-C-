@@ -39,7 +39,7 @@ void NeuralNetwork::backPropagation() {
     }
 
     newWeights.push_back(newWeightsOutputToHidden);
-    gradient = new Matrix(gradientsYToZ->getNumRows(), gradientsYToZ-?getNumCols(), false);
+    gradient = new Matrix(gradientsYToZ->getNumRows(), gradientsYToZ->getNumCols(), false);
 
     for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
         for (int c = 0; c < gradientsYToZ->getNumCols(); c++) {
@@ -57,7 +57,8 @@ void NeuralNetwork::backPropagation() {
                                         l->getNeurons().size(),
                                         false
                                     );
-        Matrix *weightMatrix = this->weightMatrices.at(i);
+        Matrix *weightMatrix        = this->weightMatrices.at(i);
+        Matrix *originalWeight      = this->weightMatrices.at(i - 1);
 
         for (int r = 0; r < weightMatrix->getNumRows(); r++) {
             double sum = 0;
@@ -70,19 +71,27 @@ void NeuralNetwork::backPropagation() {
             derivedGradients->setValue(0, r, g);
         }
 
-        // FIXME: Multiple errors below,
-        // just keeping the rough sketch right now.
-        Matrix *leftNeurons = (i - 1) = 0 ?
-        this->layers->at(0)->matrixifyVals() : this->layers->at(i - 1) ->matrixifyActivatedVals();
+        Matrix *leftNeurons = (i - 1 == 0) ?
+        this->layers.at(0)->matrixifyVals() : this->layers.at(i - 1) ->matrixifyActivatedVals();
 
-        Matrix *deltaWeights = (new utils::multiplyMatrix(derivedGradients->transpose(), leftNeurons))->execute() ->transpose();
+        Matrix *deltaWeights = (new utils::MultiplyMatrix(derivedGradients->transpose(), leftNeurons))->execute() ->transpose();
         
-        Matrix _*newWeights = new Matrix(
-                                deltsWeights->getNumRows(),
-                                deltsWeights->getNumCols(),
-                                false
-                            );
+        Matrix *newWeightsHidden = new Matrix(
+                                    deltaWeights->getNumRows(),
+                                    deltaWeights->getNumCols(),
+                                    false
+                                );
         
+        for (int r = 0; r < newWeightsHidden->getNumRows(); r++) {
+            for (int c = 0; c < newWeightsHidden->getNumCols(); c++) {
+                double w = originalWeight->getValue(r, c);
+                double d = deltaWeights->getValue(r, c);
+                double n = w - d;    // new weight
+                newWeightsHidden->setValue(r, c, n);
+            }
+        }
+
+        newWeights.push_back(newWeightsHidden);
     }
 }
 
