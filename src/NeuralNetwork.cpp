@@ -68,8 +68,15 @@ void NeuralNetwork::backPropagation() {
             }
 
             double g = sum * activatedHidden->getValue(0, r);
-            derivedGradients->setValue(0, r, sum);
+            derivedGradients->setValue(0, r, g);
         }
+
+        // FIXME: Multiple errors below,
+        // just keeping the rough sketch right now.
+        Matrix *leftNeurons = (i - 1) = 0 ?
+        this->layers->at(0)->matrixifyVals() : this->layers->at(i - 1) ->matrixifyActivatedVals();
+
+        Matrix *deltaWeights = (new utils::multiplyMatrix(derivedGradients->transpose(), leftNeurons))->execute()
     }
 }
 
