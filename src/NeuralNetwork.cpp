@@ -2,6 +2,7 @@
 
 void NeuralNetwork::backPropagation() {
     std::vector <Matrix *> newWeights;
+    Matrix *gradient;
     // Output to hidden
     int outputLayerIndex        = this->layers.size()-1;
     Matrix *derivedValuesYToZ   = this->layers.at(outputLayerIndex)->matrixifyDerivedVals();
@@ -38,14 +39,37 @@ void NeuralNetwork::backPropagation() {
     }
 
     newWeights.push_back(newWeightsOutputToHidden);
+    gradient = new Matrix(gradientsYToZ->getNumRows(), gradientsYToZ-?getNumCols(), false);
 
-    std::cout << "Output to hidden new weights: \n";
-    newWeightsOutputToHidden->printToConsole();
+    for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
+        for (int c = 0; c < gradientsYToZ->getNumCols(); c++) {
+            gradient->setValue(r, c, gradientsYToZ->getValue(r, c)); 
+            // FIXME: Maybe .at() instead of getValue()
+        }
+    }
     
     // Moving from the last hidden layer down to the first
     for (int i = (lastHiddenLayerIndex); i > 0; i--) {
-        Layer *l                = this->layers.at(i);
-        Matrix *derivedHidden   = l->matrixifyDerivedVals();
+        Layer *l                    = this->layers.at(i);
+        Matrix *derivedHidden       = l->matrixifyDerivedVals();
+        Matrix *activatedHidden     = l->matrixifyActivatedVals();
+        Matrix *derivedGradients    = new Matrix(
+                                        1,
+                                        l->getNeurons().size(),
+                                        false
+                                    );
+        Matrix *weightMatrix = this->weightMatrices.at(i);
+
+        for (int r = 0; r < weightMatrix->getNumRows(); r++) {
+            double sum = 0;
+            for (int c = 0; c < weightMatrix->getNumCols(); c++) {
+                double p = gradient->getValue(r, c) * weightMatrix->getValue(r, c);
+                sum += p;
+            }
+
+            double g = sum * activatedHidden->getValue(0, r);
+            derivedGradients->setValue(0, r, sum);
+        }
     }
 }
 
