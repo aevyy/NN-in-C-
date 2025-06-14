@@ -39,9 +39,9 @@ void NeuralNetwork::backPropagation() {
     }
 
     newWeights.push_back(newWeightsOutputToHidden);
-    gradient = new Matrix(gradientsYToZ->getNumRows(), gradientsYToZ->getNumCols(), false);
 
-    for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
+    gradient = new Matrix(gradientsYToZ->getNumRows(), gradientsYToZ->getNumCols(), false);
+    for (int r = 0; r < gradientsYToZ->getNumRows(); r++) {
         for (int c = 0; c < gradientsYToZ->getNumCols(); c++) {
             gradient->setValue(r, c, gradientsYToZ->getValue(r, c));
         }
@@ -92,6 +92,12 @@ void NeuralNetwork::backPropagation() {
         }
 
         newWeights.push_back(newWeightsHidden);
+        gradient = new Matrix(derivedGradients->getNumRows(), derivedGradients->getNumCols(), false);
+        for (int r = 0; r < derivedGradients->getNumRows(); r++) {
+            for (int c = 0; c < derivedGradients->getNumCols(); c++) {
+                gradient->setValue(r, c, derivedGradients->getValue(r, c));
+            }
+        }
     }
 }
 
