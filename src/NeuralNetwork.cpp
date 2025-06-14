@@ -43,8 +43,7 @@ void NeuralNetwork::backPropagation() {
 
     for (int r = 0; r < deltaOutputToHidden->getNumRows(); r++) {
         for (int c = 0; c < gradientsYToZ->getNumCols(); c++) {
-            gradient->setValue(r, c, gradientsYToZ->getValue(r, c)); 
-            // FIXME: Maybe .at() instead of getValue()
+            gradient->setValue(r, c, gradientsYToZ->getValue(r, c));
         }
     }
     
@@ -76,7 +75,14 @@ void NeuralNetwork::backPropagation() {
         Matrix *leftNeurons = (i - 1) = 0 ?
         this->layers->at(0)->matrixifyVals() : this->layers->at(i - 1) ->matrixifyActivatedVals();
 
-        Matrix *deltaWeights = (new utils::multiplyMatrix(derivedGradients->transpose(), leftNeurons))->execute()
+        Matrix *deltaWeights = (new utils::multiplyMatrix(derivedGradients->transpose(), leftNeurons))->execute() ->transpose();
+        
+        Matrix _*newWeights = new Matrix(
+                                deltsWeights->getNumRows(),
+                                deltsWeights->getNumCols(),
+                                false
+                            );
+        
     }
 }
 
