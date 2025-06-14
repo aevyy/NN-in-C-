@@ -1,4 +1,4 @@
-#include "../headers/utils/MultiplyMatrix.h"
+#include "../../headers/utils/MultiplyMatrix.h"
 
 utils::MultiplyMatrix::MultiplyMatrix(Matrix *a, Matrix *b) {
     this->a = a;

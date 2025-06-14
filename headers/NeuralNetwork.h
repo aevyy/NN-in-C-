@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm> // just to use std::reverse()
+#include <algorithm> // just to use std::reverse().
 #include "Neuron.h"
 #include "Layer.h"
 #include "Matrix.h"

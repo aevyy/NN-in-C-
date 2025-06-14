@@ -10,7 +10,7 @@ namespace utils {
     class MultiplyMatrix {
     public:
         MultiplyMatrix(Matrix *a, Matrix *b);
-        Matrix* execute();
+        Matrix *execute();
 
     private:
         Matrix *a, *b, *c;
