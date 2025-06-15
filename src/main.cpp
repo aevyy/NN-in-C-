@@ -25,7 +25,7 @@ int main() {
 
     // Training  process
     // Lets run it 10 times to test if the error is decreasing
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 1000; i++) {
         // cout << ">>>About to call feedForward()\n";
         nn->feedForward();
         // cout << ">>>Returned from feedForward()\n";
@@ -43,6 +43,18 @@ int main() {
         // cout << ">>> About to call backPropagation()\n";
         nn->backPropagation();
         // cout << ">>> Returned from backPropagation()\n";
+
+        // To compare input, target, and output
+        cout << "=====================" << endl;
+        cout << "OUTPUT: ";
+        nn->printOutputToConsole();
+
+        cout << "=====================" << endl;
+        cout << "TARGET: "; 
+        nn->printTargetToConsole();
+        
+        cout << endl;
+        
     }
 
     return 0;

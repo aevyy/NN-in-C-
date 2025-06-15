@@ -53,6 +53,11 @@ public:
     double getTotalError() { return this->error; }
     std::vector <double> getErrors() { return this->errors; }
 
+    // More print functions for testing
+    void printInputToConsole();
+    void printOutputToConsole();
+    void printTargetToConsole();
+
 private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;

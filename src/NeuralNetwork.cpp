@@ -109,6 +109,28 @@ void NeuralNetwork::backPropagation() {
     this->weightMatrices = newWeights;
 }
 
+void NeuralNetwork::printInputToConsole() {
+    for (int i = 0; i < this->input.size(); i++) {
+        std::cout << this->input.at(i) << "\t";
+    }
+    std::cout << std::endl;
+}
+
+void NeuralNetwork::printTargetToConsole() {
+    for (int i = 0; i < this->target.size(); i++) {
+        std::cout << this->target.at(i) << "\t";
+    }
+    std::cout << std::endl;
+}
+
+void NeuralNetwork::printOutputToConsole() {
+    int outputLayerIndex    = this->layers.size() - 1;
+    Matrix *outputValues    = this->layers.at(outputLayerIndex)->matrixifyActivatedVals();
+    for (int c = 0; c < outputValues->getNumCols(); c++) {
+         std::cout << outputValues->getValue(0, c) << "\t";
+    }
+}
+
 void NeuralNetwork::setErrors() {
     if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
     std::cerr << ">>> DEBUG: target size = " << this->target.size()
