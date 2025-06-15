@@ -56,6 +56,8 @@ int main() {
         cout << endl;
         
     }
+    cout << "HISTORICAL ERRORS: \n";
+    nn->printHistoricalErrors();
 
     return 0;
 }

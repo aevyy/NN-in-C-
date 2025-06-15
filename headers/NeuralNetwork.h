@@ -57,6 +57,7 @@ public:
     void printInputToConsole();
     void printOutputToConsole();
     void printTargetToConsole();
+    void printHistoricalErrors();
 
 private:
     // Topology represents the number of elements (neurons) in each layer

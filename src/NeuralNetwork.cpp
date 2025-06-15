@@ -123,6 +123,16 @@ void NeuralNetwork::printTargetToConsole() {
     std::cout << std::endl;
 }
 
+void NeuralNetwork::printHistoricalErrors() {
+    for (int i = 0; i < this->historicalErrors.size(); i++) {
+        std::cout << this->historicalErrors.at(i);
+        if (i != this->historicalErrors.size()-1) {
+            std::cout << ",";
+        }
+    }
+    std::cout << std::endl;
+}
+
 void NeuralNetwork::printOutputToConsole() {
     int outputLayerIndex    = this->layers.size() - 1;
     Matrix *outputValues    = this->layers.at(outputLayerIndex)->matrixifyActivatedVals();
@@ -157,7 +167,7 @@ void NeuralNetwork::setErrors() {
     this->errors.resize(target.size());
     
     for (int i = 0; i < target.size(); i++) {
-        // Previous cost function:
+        // Previous cost function:s
         // double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
 
         // Updated cost function:
