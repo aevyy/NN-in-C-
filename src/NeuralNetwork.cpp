@@ -63,7 +63,7 @@ void NeuralNetwork::backPropagation() {
         for (int r = 0; r < weightMatrix->getNumRows(); r++) {
             double sum = 0;
             for (int c = 0; c < weightMatrix->getNumCols(); c++) {
-                double p = gradient->getValue(0, c) * weightMatrix->getValue(r, c); // FIX: Replaced (r, c) with (0, c).
+                double p = gradient->getValue(0, c) * weightMatrix->getValue(r, c);
                 sum += p;
             }
 
@@ -157,11 +157,18 @@ void NeuralNetwork::setErrors() {
     this->errors.resize(target.size());
     
     for (int i = 0; i < target.size(); i++) {
-        // I have used the simplest cost function to determine the error
-        double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
+        // Previous cost function:
+        // double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
+
+        // Updated cost function:
+        // Computes the squared error between target and prediction
+        double tempErr = outputNeurons.at(i)->getActivatedVal() - target.at(i);
         errors.at(i) = tempErr;
-        this->error += tempErr;
+        this->error += pow(tempErr, 2);
     }
+    // Final cost: one half of sum of squared errors (standard quadratic cost)
+    this->error = 0.5 * this->error;
+
     // Keeping track of all the errors on each iteration
     historicalErrors.push_back(this->error);
 }
