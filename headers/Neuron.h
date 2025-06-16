@@ -1,46 +1,28 @@
 #pragma once
 
+enum ActivationType { TANH = 1, RELU = 2, SIGM = 3 };
+
 #include <iostream>
 #include <cmath>
 
 class Neuron {
 public:
-
-    // Constructor
     Neuron(double val);
+    Neuron(double val, ActivationType activationType);
 
-    // Setters
-    void setVal(double v);
-
-    /*
-    I am gopnna use a sigmoid function to activate a neuron
-    because it is easy to get it's derivative
-    f(x) = x / (1 + |x|)
-    */
     void activate();
 
-    /*
-    derivative of fast sigmoid function
-    f'(x) = f(x) * (1 - f(x))
-    */
     void derive();
 
+    // Mutator
+    void setVal(double v);
 
-    //  Getters
+    //  Accessors
     double getVal() { return this->val; }
     double getActivatedVal() { return this->activatedVal; }
     double getDerivedVal() { return this->derivedVal; }
 
 private:
-    // The current value of the neuron
-    double val;
-
-    // The activation value of the neuron
-    // This is also the squeezed value of the val
-    double activatedVal;
-
-    // The approximated deerivative of the direct value
-    double derivedVal;
-
-
+    double val, activatedVal, derivedVal;
+    ActivationType activationType;
 };
