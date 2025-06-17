@@ -26,9 +26,9 @@ void NeuralNetwork::printHistoricalErrors() {
 
 void NeuralNetwork::printOutputToConsole() {
     int outputLayerIndex    = this->layers.size() - 1;
-    Matrix *outputValues    = this->layers.at(outputLayerIndex)->matrixifyActivatedVals();
-    for (int c = 0; c < outputValues->getNumCols(); c++) {
-         std::cout << outputValues->getValue(0, c) << "\t";
+    Matrix outputValues     = layers.at(outputLayerIndex)->matrixifyActivatedVals();
+    for (int c = 0; c < outputValues.getNumCols(); c++) {
+         std::cout << outputValues.getValue(0, c) << "\t";
     }
 }
 
@@ -38,11 +38,11 @@ void NeuralNetwork::printToConsole() {
         std::cout << "LAYER: " << i << std::endl;
 
         if (i == 0) {
-            Matrix *m = this->layers.at(i)->matrixifyVals();
-            m->printToConsole();
+            Matrix m = this->layers.at(i)->matrixifyVals();
+            m.printToConsole();
         } else {
-            Matrix *m = this->layers.at(i)->matrixifyActivatedVals();
-            m->printToConsole();
+            Matrix m = layers.at(i)->matrixifyActivatedVals();
+            m.printToConsole();
         }
 
         std::cout << "=========================\n";

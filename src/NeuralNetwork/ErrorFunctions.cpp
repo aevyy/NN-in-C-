@@ -1,43 +1,44 @@
 #include "../../headers/NeuralNetwork.h"
 
 void NeuralNetwork::setErrors() {
-    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
-    std::cerr << ">>> DEBUG: target size = " << this->target.size()
-              << ", output layer size = "
-              << this->layers.at(this->layers.size() - 1)->getNeurons().size()
-              << std::endl;
-    std::cerr << "Target size is not same as output layer size." << std::endl;
-    assert(false);
-}
+    // Output layer information
+    int outputLayerIndex    = this->layers.size() - 1;
+    int outputLayerSize     = this->layers[outputLayerIndex]->getNeurons().size();
 
+    // Check target size matches output layer size
+    if (this->target.size() != outputLayerSize) {
+    std::cerr   << ">>> ERROR: target size = " << this->target.size()
+                << ", output layer size = " << outputLayerSize << std::endl
+                << "Target size is not same as output layer size." << std::endl;
 
-    // The target size should be the same size as the output layer
-    if (this->target.size() != this->layers.at(this->layers.size() - 1)->getNeurons().size()) {
-        std::cerr << "Target size is not same at the output layer size: "
-        << this->layers.at(this->layers.size() - 1)->getNeurons().size() << std::endl;
-        assert(false);
+                return;     // Cannot proceed with invalid state
     }
 
+    // Reset error tracking
     this->error = 0.00;
-    int outputLayerIndex = this->layers.size() - 1;
-    std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
+    this->errors.clear();
+    this->errors.reserve(outputLayerSize);  // Pre-allocating memory
 
-    // I am resizing the errors before filing to prevent errors
-    this->errors.resize(target.size());
-    
+    // Getting output neurons
+    std::vector<Neuron *> outputNeurons = this->layers[outputLayerIndex]->getNeurons();
+
+    // Calculaating errors    
     for (int i = 0; i < target.size(); i++) {
-        // Previous cost function:s
+        // Previous cost function:
         // double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
 
         // Updated cost function:
         // Computes the squared error between target and prediction
-        double tempErr = outputNeurons.at(i)->getActivatedVal() - target.at(i);
-        errors.at(i) = tempErr;
-        this->error += pow(tempErr, 2);
+        double output   = outputNeurons.at(i)->getActivatedVal();
+        double tempErr  = output - target.at(i);
+        this->error     += tempErr * tempErr; // Sum of squared errors
+
+        this->errors.push_back(tempErr);
+
     }
-    // Final cost: one half of sum of squared errors (standard quadratic cost)
+    // Final cost: one half of sum of squared errors (quadratic cost)
     this->error = 0.5 * this->error;
 
     // Keeping track of all the errors on each iteration
-    historicalErrors.push_back(this->error);
+    this->historicalErrors.push_back(this->error);
 }

@@ -22,21 +22,19 @@ public:
     int getNumRows() const { return this->numRows; }
     int getNumCols() const { return this->numCols; }
 
-    // IO Helper
+    // Utility
     void printToConsole() const;
+    std::vector<double> toVector() const;
 
     // Operator Overloads
     Matrix operator*(const Matrix& that) const; // this * that (returns new matrix)
     Matrix& operator*=(const Matrix& that);     // this *= that (modifies this)
 
-    // this to vector
-    std::vector<double> toVector() const;
-
 private:
     double generateRandomNumber();
 
-    int numRows;
-    int numCols;
+    int numRows = 0;
+    int numCols = 0;
 
     // Two dimentional vector: Matrix
     std::vector < std::vector<double> > values;

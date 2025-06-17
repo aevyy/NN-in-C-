@@ -79,12 +79,12 @@ Matrix Matrix::operator*(const Matrix& that) const {
 
     // Multiplication
     for (int i = 0; i < this->numRows; i++) {
-        for (int j = 0; j < that.numCols; j++) {
-            double sum = 0.0;
-            for (int k = 0; k < this->numCols; k++) {
-                sum += this->values[i][k] * that.values[k][j];
+        for (int k = 0; k < this->numCols; k++) {
+            const double a_val = this->values[i][k];    // Cache this value
+            for (int j = 0; j < that.numCols; j++) {
+                // Accumulating product directly into result
+                result.values[i][j] += a_val * that.values[k][j];
             }
-            result.values[i][j] = sum;
         }
     }
 

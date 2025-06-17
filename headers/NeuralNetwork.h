@@ -7,10 +7,6 @@
 #include "Layer.h"
 #include "Matrix.h"
 
-#include "utils/MultiplyMatrix.h"
-#include "utils/MatrixToVector.h"
-
-
 class NeuralNetwork {
 public:
     // Constructor
@@ -34,20 +30,20 @@ public:
     void backPropagation();
     
     // Funcitons to get neuron matrices
-    Matrix *getNeuronMatrix(int index) {
-        return this->layers.at(index)->matrixifyVals();
+    Matrix getNeuronMatrix(int index) {
+        return layers.at(index)->matrixifyVals();
     }
 
-    Matrix *getActivatedNeuronMatrix(int index) {
-        return this->layers.at(index)->matrixifyActivatedVals();
+    Matrix getActivatedNeuronMatrix(int index) {
+        return layers.at(index)->matrixifyActivatedVals();
     }
 
-    Matrix *getDerivedNeuronMatrix(int index) {
-        return this->layers.at(index)->matrixifyDerivedVals();
+    Matrix getDerivedNeuronMatrix(int index) {
+        return layers.at(index)->matrixifyDerivedVals();
     }
 
-    Matrix *getWeightMatrix(int index)  {
-        return this->weightMatrices.at(index);
+    Matrix* getWeightMatrix(int index)  {
+        return weightMatrices.at(index);
     }
 
     double getTotalError() { return this->error; }
