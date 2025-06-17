@@ -2,39 +2,34 @@
 
 #include <iostream>
 #include <vector>
+#include <iomanip>
+#include <random>
 
 class Matrix {
 public:
-    // Constructor
-    Matrix(int numRows, int numCols, bool isRandom);
+    Matrix();
+    Matrix(int numRows, int numCols, bool isRandom = false);
     
-    // Function to transpose the matrix
-    Matrix *transpose();
+    Matrix transpose() const;
+    Matrix duplicate() const;
 
-    // Function to generate ramdom number
-    double generateRandomNumber();
-    
-    // Setter function where r and c
-    // are the indices of row and the column
-    // where I want my value v to be set
-    void setValue(int r, int c, double v) { this->values.at(r).at(c) = v; }
+    // Mutator
+    void setValue(int row, int col, double val) { this->values.at(row).at(col) = val; }
 
-    // getter function to get value based on the indices
-    double getValue(int r, int c) { return this->values.at(r).at(c); }
+    // Accessors
+    double getValue(int row, int col) const { return this->values.at(row).at(col); }
+    int getNumRows() const { return this->numRows; }
+    int getNumCols() const { return this->numCols; }
 
-    // Getter functions to get num rows and num cols
-    int getNumRows() { return this->numRows; }
-    int getNumCols() { return this->numCols; }
-
-    // Lets add a function to print the values in the matrix
-    void printToConsole();
+    // IO Helper
+    void printToConsole() const;
 
 private:
-    // I would like to keep track of
-    // number of rows and columns
+    double generateRandomNumber();
+
     int numRows;
     int numCols;
 
-    // Lets create a vector of vectors (which makes it a matrix)
+    // Two dimentional vector: Matrix
     std::vector < std::vector<double> > values;
 };

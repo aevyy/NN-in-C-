@@ -1,60 +1,69 @@
 #include "../headers/Matrix.h"
-#include <random>
-#include <vector>
 
-// Lets make a transpose function that
-// interchanges the rows with columns
-Matrix *Matrix::transpose() {
-    Matrix *m = new Matrix(this->numCols, this->numRows, false);
+// Default constructor: creates an empty matrix
+Matrix::Matrix()
+    : numRows(0),
+      numCols(0),
+      values()
+{}
+
+// Constructor: create matrix of given size,
+// optionally filled with random values
+Matrix::Matrix(int numRows, int numCols, bool isRandom) {
+    this->numRows = numRows;
+    this->numCols = numCols;
+
+    // Fill matrix with either random or zero
     for (int i = 0; i < numRows; i++) {
+        std::vector<double> colVals;
+        
         for (int j = 0; j < numCols; j++) {
-            m->setValue(j, i, this->getValue(i, j));
+            double r = isRandom ? this->generateRandomNumber() : 0.00;
+            colVals.push_back(r);
+        }
+
+        // Stack the colVals -> Matrix
+        this->values.push_back(colVals);
+    }
+}
+
+// Transpose: rows <-> columns interchange
+Matrix Matrix::transpose() const {
+    Matrix m(this->numCols, this->numRows, false);
+    for (int i = 0; i < this->numRows; i++) {
+        for (int j = 0; j < this->numCols; j++) {
+            m.setValue(j, i, this->getValue(i, j));
         }
     }
+
+    return m;
+}
+
+Matrix Matrix::duplicate() const {
+    Matrix m(this->numRows, this->numCols, false);
+    for (int i = 0; i < this->numRows; i++) {
+        for (int j = 0; j < this->numCols; j++) {
+            m.setValue(i, j, this->getValue(i, j));
+        }
+    }
+
     return m;
 }
 
 double Matrix::generateRandomNumber() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(0, 1);
+    std::uniform_real_distribution<> dis(-.0001, .0001);
 
     return dis(gen);
 }
 
-
-// Function to print the elements in the matrix
-// Mainly, this function is gonna help me debug
-void Matrix::printToConsole() {
+void Matrix::printToConsole() const {
     for (int i = 0; i < numRows; i++) {
         for (int j = 0; j < numCols; j++) {
             std::cout << this->values.at(i).at(j) << "\t\t";
         }
+        
         std::cout << std::endl;
     }
 }
-
-Matrix::Matrix(int numRows, int numCols, bool isRandom) {
-    this->numRows = numRows;
-    this->numCols = numCols;
-
-    for (int i = 0; i < numRows; i++) {
-        // Lets make a vector where we'll
-        // have our column values
-        std::vector<double> colValues;
-
-        for (int j = 0; j < numCols; j++) {
-            double r = 0.00;
-            if (isRandom) {
-                r = this->generateRandomNumber();
-            }
-            // Lets add the random elements to our vector
-            colValues.push_back(r);
-        }
-
-        // This is basically stacking the columns
-        // on top of each other to make a matrix
-        this->values.push_back(colValues);
-    }
-}
-
