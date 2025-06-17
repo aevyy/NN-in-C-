@@ -4,6 +4,7 @@
 #include <vector>
 #include <iomanip>
 #include <random>
+#include <string>
 
 class Matrix {
 public:
@@ -23,6 +24,13 @@ public:
 
     // IO Helper
     void printToConsole() const;
+
+    // Operator Overloads
+    Matrix operator*(const Matrix& that) const; // this * that (returns new matrix)
+    Matrix& operator*=(const Matrix& that);     // this *= that (modifies this)
+
+    // this to vector
+    std::vector<double> toVector() const;
 
 private:
     double generateRandomNumber();
