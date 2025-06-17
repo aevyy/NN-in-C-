@@ -4,16 +4,48 @@
 *.o
 *.out
 *.exe
+*.pdb
+*.ilk
+*.idb
+*.obj
+*.exp
+*.lib
+*.tlog
+*.lastbuildstate
 
-# CMake
+# CMake generated files
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
+*.cmake
+
+# Executable directories
+bin/
+lib/
+
+# Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.VC.opendb
 
 # VSCode settings
 .vscode/
 
-# macOS / Linux / Windows system files
+# System files
 .DS_Store
 Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Large data files
+*.dat
+*.bin

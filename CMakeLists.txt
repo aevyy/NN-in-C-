@@ -13,9 +13,13 @@ set(SOURCES
     src/Neuron.cpp
     src/Matrix.cpp
     src/Layer.cpp
-    src/NeuralNetwork.cpp
-    src/utils/MatrixToVector.cpp
-    src/utils/MultiplyMatrix.cpp
+    src/NeuralNetwork/BackPropagation.cpp
+    src/NeuralNetwork/constructor.cpp
+    src/NeuralNetwork/ErrorFunctions
+    src/NeuralNetwork/FeedForward.cpp
+    src/NeuralNetwork/IOHelpers.cpp
+    src/NeuralNetwork/mutators.cpp
+
 )
 
 # Defining the executable

@@ -65,7 +65,7 @@ void NeuralNetwork::backPropagation() {
         // Getting previous layer values
         Matrix prevNeurons = (i - 1 == 0) ?
         this->layers.at(0)->matrixifyVals() :
-        this->layers[i]->matrixifyActivatedVals();
+        this->layers[i-1]->matrixifyActivatedVals();
 
         // Calculating delta weights
         Matrix hiddenDelta = (hiddenGradients.transpose() * prevNeurons).transpose();
@@ -80,7 +80,7 @@ void NeuralNetwork::backPropagation() {
         for (int r = 0; r < newHiddenWeights->getNumRows(); r++) {
             for (int c = 0; c < newHiddenWeights->getNumCols(); c++) {
                 double w = originalWeight->getValue(r, c);
-                double d = deltaWeights.getValue(r, c);
+                double d = hiddenDelta.getValue(r, c);
                 double newWeight = w - d;    // new weight
                 newHiddenWeights->setValue(r, c, newWeight);
             }
