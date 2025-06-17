@@ -9,21 +9,30 @@ class Layer {
 public:
     // Constructor
     Layer(int size);
+    Layer(int size, ActivationType activationType);
 
-    // setter
+    // Destrictor
+    ~Layer();
+
+    // Delete copy constructor and assignment to prevent shallow copies
+    Layer(const Layer&) = delete;
+    Layer& operator=(const Layer&) = delete;
+
+    // Mutators and Accessors
     void setVal(int index, double val);
-    void setNeuron(std::vector<Neuron *> neurons) { this->neurons = neurons; }
+    void setNeuron(std::vector<Neuron*>& neurons);
+    std::vector<Neuron *> getNeurons() const { return neurons; }
 
+    std::vector<double> getActivatedVals() const;
 
-    // A function to convert a vector into 1 by n matrix
-    Matrix *matrixifyVals();
-    Matrix *matrixifyActivatedVals();
-    Matrix *matrixifyDerivedVals();
-
-    // Getters
-    std::vector<Neuron *> getNeurons() { return this->neurons; }
+    // Matrix representations of neuron values
+    Matrix matrixifyVals() const;
+    Matrix matrixifyActivatedVals() const;
+    Matrix matrixifyDerivedVals() const;
 
 private:
-    int size;   // This is the size of neurons vector
-    std::vector<Neuron *> neurons;  // This will contain the instances of Neuron
+    // Number of neurons in the layer
+    int size;
+    // The instances of Neuron
+    std::vector<Neuron*> neurons;
 };
