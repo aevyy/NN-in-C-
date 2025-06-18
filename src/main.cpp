@@ -9,87 +9,54 @@ using namespace std;
 
 int main() {
 
-    vector<vector<double>> rows = utils::DataLoader::fetchData("../src/test_data.csv");
-    cout << "Rows loaded: " << rows.size() << endl;
-    for (size_t i = 9; i < rows.size(); i++) {
-        cout << "Row " << i << " size: " << rows[i].size() << endl;
+    const int inputSize = 4;
+    const int targetSize = 4;
+    const string path = "../src/test_data.csv";
+
+    // Loading samples from file
+    vector<utils::Sample> dataset = utils::DataLoader::fetchData(
+        path,
+        inputSize,
+        targetSize
+    );
+
+    if (dataset.empty()) {
+        cerr << "No valid data loaded from file: "
+        << path << endl;
     }
 
-    cout << "Setting input" << endl;
-    vector<double> input = rows[0];
-    cout << "Successfully set input" << endl;
-
-    cout << "Setting target" << endl;
-    vector<double> target = rows[3];
-    cout << "Successfully set target" << endl;
-
-
-    // vector<double> input;
-    // input.push_back(1);
-    // input.push_back(0);
-    // input.push_back(1);
-
-    vector<int> topology;
-    cout << "Topology push backk" << endl;
-    topology.push_back(4);
-    topology.push_back(2);
-    topology.push_back(4);
-    cout << "Complete topology push back" << endl;
-
-    vector<ActivationType> activations = {
-                                            SIGM,
-                                            RELU,
-                                            SIGM
-                                        };
-
+    // Defiining topology and activation functions
+    vector<int> topology = {4, 2, 4};
+    vector<ActivationType> activations = {SIGM,RELU,SIGM};
     double learningRate = 0.9;
 
     NeuralNetwork *nn = new NeuralNetwork(topology, activations, learningRate);
-    cout << "About to call setCurrentInput" << endl;
-    nn->setCurrentInput(input);
-    cout << ">>> About to call setCurrentTarget()\n";
-    nn->setCurrentTarget(target);
-    cout << ">>> Returned from setCurrentTarget()\n";
 
-    // Training  process
-    // Lets run it 10 times to test if the error is decreasing
-    for (int i = 0; i < 100; i++) {
-        // cout << ">>>About to call feedForward()\n";
-        nn->feedForward();
-        // cout << ">>>Returned from feedForward()\n";
+    int epochs = 1000;
 
-        // cout << ">>> About to call setErrors() \n";
-        nn->setErrors();
-        // cout << ">>>Returned from setErrors()\n";
-        
-        // cout << ">>> About to call printToConsole()\n";
-        // nn->printToConsole();
-        // cout << ">>> Returned from printToConsole()\n";
+    for (int i = 0; i < epochs; i++) {
+        cout << "EPOCH: " << i + 1 << endl;
 
-        cout << "Epoch: " << i + 1 << endl;
-        cout << "Total errors: " << nn->getTotalError() << endl;
+        for (const auto& [input, target] : dataset) {
+            nn->setCurrentInput(input);
+            nn->setCurrentTarget(target);
 
-        // cout << ">>> About to call backPropagation()\n";
-        nn->backPropagation();
-        // cout << ">>> Returned from backPropagation()\n";
+            nn->feedForward();
+            nn->setErrors();
+            nn->backPropagation();
+        }
 
-        // To compare input, target, and output
-        cout << "=====================" << endl;
+        cout << "Total error: " << nn->getTotalError() << endl;
+
+        cout << "==============================" << endl;
         cout << "OUTPUT: ";
         nn->printOutputToConsole();
-
-        cout << "=====================" << endl;
-        cout << "TARGET: "; 
+        cout << endl << "==============================" << endl;
+        cout << "TARGET: ";
         nn->printTargetToConsole();
-        
         cout << endl;
-        
     }
-    // cout << "HISTORICAL ERRORS: \n";
-    // nn->printHistoricalErrors();
-
 
     delete nn;
-
     return 0;
 }

@@ -8,9 +8,15 @@
 #include <string>
 
 namespace utils {
-    class DataLoader {  
+
+    using Sample = std::pair<std::vector<double>, std::vector<double>>;
+
+    class DataLoader {
     public:
         // Loads a CSV file
-        static std::vector< std::vector<double> > fetchData(const std::string& pathToFile);
+        static std::vector< Sample > fetchData(
+                const std::string& path,
+                int inputSize,
+                int targetSize );
     };
 }
