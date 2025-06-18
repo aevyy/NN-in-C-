@@ -10,7 +10,9 @@
 class NeuralNetwork {
 public:
     // Constructor
-    NeuralNetwork(std::vector<int> topology);
+    NeuralNetwork(std::vector<int> topology, std::vector<ActivationType> activations);
+
+    ~NeuralNetwork();
 
     // Setters
     void setCurrentInput(std::vector<double> input);

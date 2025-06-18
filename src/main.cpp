@@ -17,7 +17,13 @@ int main() {
     topology.push_back(2);
     topology.push_back(3);
 
-    NeuralNetwork *nn = new NeuralNetwork(topology);
+    vector<ActivationType> activations = {
+                                            SIGM,
+                                            RELU,
+                                            SIGM
+                                        };
+
+    NeuralNetwork *nn = new NeuralNetwork(topology, activations);
     nn->setCurrentInput(input);
     cout << ">>> About to call setCurrentTarget()\n";
     nn->setCurrentTarget(input);
@@ -58,6 +64,9 @@ int main() {
     }
     cout << "HISTORICAL ERRORS: \n";
     nn->printHistoricalErrors();
+
+
+    delete nn;
 
     return 0;
 }

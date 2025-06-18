@@ -1,26 +1,22 @@
-cmake_minimum_required(VERSION 3.10)
-project(NeuralNetworkCPP)
+cmake_minimum_required(VERSION 3.15)
+project(main)
 
-# Using C++17
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# The header files directory
-include_directories(headers)
-
-# The source files
-set(SOURCES
-    src/main.cpp
-    src/Neuron.cpp
-    src/Matrix.cpp
-    src/Layer.cpp
-    src/NeuralNetwork/BackPropagation.cpp
-    src/NeuralNetwork/constructor.cpp
-    src/NeuralNetwork/ErrorFunctions
-    src/NeuralNetwork/FeedForward.cpp
-    src/NeuralNetwork/IOHelpers.cpp
-    src/NeuralNetwork/mutators.cpp
-
+# Collecting all source files
+file(GLOB_RECURSE SOURCES
+    "src/*.cpp"
 )
 
-# Defining the executable
-add_executable(main ${SOURCES})
+# Including directories for headers
+include_directories(
+    headers
+    headers/Matrix
+    headers/Neuron
+    headers/Layer
+    headers/NeuralNetwork
+)
+
+# The executable
+add_executable(${PROJECT_NAME} ${SOURCES})
