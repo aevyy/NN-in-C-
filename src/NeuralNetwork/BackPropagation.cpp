@@ -30,7 +30,7 @@ void NeuralNetwork::backPropagation() {
         for (int c = 0; c < newOutputWeights->getNumCols(); c++) {
             double originalWeight   = outputWeights->getValue(r, c);
             double deltaWeight      = deltaWeights.getValue(r, c);
-            double newWeight        = originalWeight - deltaWeight;
+            double newWeight        = originalWeight - (this->learningRate * deltaWeight);
 
             newOutputWeights->setValue(r, c, newWeight);
         }
