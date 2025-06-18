@@ -16,6 +16,7 @@ include_directories(
     headers/Neuron
     headers/Layer
     headers/NeuralNetwork
+    headers/utils/DataLoader
     
 )
 
