@@ -10,7 +10,11 @@
 class NeuralNetwork {
 public:
     // Constructor
-    NeuralNetwork(std::vector<int> topology, std::vector<ActivationType> activations);
+    NeuralNetwork(
+        std::vector<int> topology,
+        std::vector<ActivationType> activations,
+        double learningRate = 1.0
+    );
 
     ~NeuralNetwork();
 
@@ -69,4 +73,5 @@ private:
     double                  error;
     std::vector<double>     errors;
     std::vector<double>     historicalErrors;
+    double                  learningRate;
 };

@@ -1,9 +1,13 @@
 #include "../../headers/NeuralNetwork.h"
 
-NeuralNetwork::NeuralNetwork(std::vector<int> topology, std::vector<ActivationType> activations) {
+NeuralNetwork::NeuralNetwork(
+    std::vector<int> topology,
+    std::vector<ActivationType> activations,
+    double learningRate) {
     // Saving the topology and computing it's size
     this->topology = topology;
     this->topologySize = topology.size();
+    this->learningRate = learningRate;
 
     if (activations.size() != topologySize) {
         std::cerr << ">>>ERROR: "

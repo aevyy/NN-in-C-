@@ -81,7 +81,7 @@ void NeuralNetwork::backPropagation() {
             for (int c = 0; c < newHiddenWeights->getNumCols(); c++) {
                 double w = originalWeight->getValue(r, c);
                 double d = hiddenDelta.getValue(r, c);
-                double newWeight = w - d;    // new weight
+                double newWeight = w - (this->learningRate * d);    // new weight
                 newHiddenWeights->setValue(r, c, newWeight);
             }
         }

@@ -23,7 +23,9 @@ int main() {
                                             SIGM
                                         };
 
-    NeuralNetwork *nn = new NeuralNetwork(topology, activations);
+    double learningRate = 0.02;
+
+    NeuralNetwork *nn = new NeuralNetwork(topology, activations, learningRate);
     nn->setCurrentInput(input);
     cout << ">>> About to call setCurrentTarget()\n";
     nn->setCurrentTarget(input);
@@ -31,7 +33,7 @@ int main() {
 
     // Training  process
     // Lets run it 10 times to test if the error is decreasing
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 5000; i++) {
         // cout << ">>>About to call feedForward()\n";
         nn->feedForward();
         // cout << ">>>Returned from feedForward()\n";
@@ -40,6 +42,8 @@ int main() {
         nn->setErrors();
         // cout << ">>>Returned from setErrors()\n";
 
+        nn->applyLearningRateDecay(i);
+        
         // cout << ">>> About to call printToConsole()\n";
         // nn->printToConsole();
         // cout << ">>> Returned from printToConsole()\n";
@@ -62,8 +66,8 @@ int main() {
         cout << endl;
         
     }
-    cout << "HISTORICAL ERRORS: \n";
-    nn->printHistoricalErrors();
+    // cout << "HISTORICAL ERRORS: \n";
+    // nn->printHistoricalErrors();
 
 
     delete nn;
