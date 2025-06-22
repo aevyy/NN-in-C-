@@ -12,7 +12,7 @@ void NeuralNetwork::feedForward() {
         Matrix c = a * (*b);    // *b = value of b (dereference)
 
         for (int c_index = 0; c_index < c.getNumCols(); c_index++) {
-            this->setNeuronValue(i + 1, c_index, c.getValue(0, c_index));
+            this->setNeuronValue(i + 1, c_index, c.getValue(0, c_index) + this->bias);
         }
     }
 }
