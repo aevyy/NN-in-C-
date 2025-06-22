@@ -7,13 +7,26 @@
 #include "Layer.h"
 #include "Matrix.h"
 
+#define COST_MSE = 1;
+
 class NeuralNetwork {
 public:
-    // Constructor
+    // Constructors
     NeuralNetwork(
         std::vector<int> topology,
-        std::vector<ActivationType> activations,
-        double learningRate = 1.0
+        double bias = 1,
+        double learningRate = 0.05,
+        double momentum = 1
+    );
+
+    NeuralNetwork (
+        std::vector<int> topology,
+        ActivationType hiddenActivationType,
+        ActivationType outputActivationType,
+        int costFunctionType,
+        double bias = 1,
+        double learningRate = 0.05,
+        double momentum = 1
     );
 
     ~NeuralNetwork();
@@ -61,6 +74,13 @@ public:
     void printTargetToConsole();
     void printHistoricalErrors();
 
+    // Public data
+    int topologySize;
+    int costFunctionType COST_MSE;
+
+    ActivationType hiddenActivationType = RELU;
+    ActivationType outputActivationType = SIGM;
+
 private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;
@@ -74,4 +94,6 @@ private:
     std::vector<double>     errors;
     std::vector<double>     historicalErrors;
     double                  learningRate;
+    double                  bias;
+    double                  momentum;
 };
