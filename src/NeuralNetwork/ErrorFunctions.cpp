@@ -14,31 +14,36 @@ void NeuralNetwork::setErrors() {
                 return;     // Cannot proceed with invalid state
     }
 
-    // Reset error tracking
-    this->error = 0.00;
-    this->errors.clear();
-    this->errors.reserve(outputLayerSize);  // Pre-allocating memory
-
-    // Getting output neurons
-    std::vector<Neuron *> outputNeurons = this->layers[outputLayerIndex]->getNeurons();
-
-    // Calculaating errors    
-    for (int i = 0; i < target.size(); i++) {
-        // Previous cost function:
-        // double tempErr = (outputNeurons.at(i) ->getActivatedVal() - target.at(i));
-
-        // Updated cost function:
-        // Computes the squared error between target and prediction
-        double output   = outputNeurons.at(i)->getActivatedVal();
-        double tempErr  = output - target.at(i);
-        this->error     += tempErr * tempErr; // Sum of squared errors
-
-        this->errors.push_back(tempErr);
-
+    switch(costFunctionType) {
+        case COST_MSE: this->setErrorMSE(); break;
+        default: this->setErrorMSE(); break;
     }
-    // Final cost: one half of sum of squared errors (quadratic cost)
-    this->error = 0.5 * this->error;
+}
 
-    // Keeping track of all the errors on each iteration
+void NeuralNetwork::setErrorMSE() {
+    int outputLayerIndex = this->layers.size() - 1;
+    std::vector<Neuron *> outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
+    int outputLayerSize = outputNeurons.size();
+
+    this->error = 0.00;
+
+    // Resetting error vectors
+    this->errors.clear();
+    this->derivedErrors.clear();
+    this->errors.resize(outputLayerSize, 0.0);
+    this->derivedErrors.resize(outputLayerSize, 0.0);
+
+    for (int i = 0; i < this->target.size(); i++) {
+        double target = this->target.at(i);
+        double prediction = outputNeurons.at(i)->getActivatedVal();
+
+        double diff = prediction - target;
+        errors.at(i) = diff * diff;     // Squared error
+        derivedErrors.at(i) = diff;     // Derivative to use in back prop
+        this->error += errors.at(i);
+    }
+
+    this->error *= 0.5;
+
     this->historicalErrors.push_back(this->error);
 }

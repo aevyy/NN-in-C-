@@ -7,7 +7,7 @@
 #include "Layer.h"
 #include "Matrix.h"
 
-#define COST_MSE = 1;
+#define COST_MSE 1
 
 class NeuralNetwork {
 public:
@@ -41,6 +41,7 @@ public:
     }
 
     void setErrors();
+    void setErrorMSE();
 
     // printing function
     void printToConsole();
@@ -76,7 +77,7 @@ public:
 
     // Public data
     int topologySize;
-    int costFunctionType COST_MSE;
+    int costFunctionType: COST_MSE;
 
     ActivationType hiddenActivationType = RELU;
     ActivationType outputActivationType = SIGM;
@@ -92,6 +93,7 @@ private:
     std::vector<double>     target;
     double                  error;
     std::vector<double>     errors;
+    std::vector<double>     derivedErrors;
     std::vector<double>     historicalErrors;
     double                  learningRate;
     double                  bias;
