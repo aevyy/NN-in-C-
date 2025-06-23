@@ -30,7 +30,7 @@ int main() {
     vector<ActivationType> activations = {SIGM,RELU,SIGM};
     double learningRate = 0.9;
 
-    NeuralNetwork *nn = new NeuralNetwork(topology, activations, learningRate);
+    NeuralNetwork* nn = new NeuralNetwork(topology, RELU, SIGM, COST_MSE, 1, learningRate, 1);
 
     int epochs = 1000;
 
@@ -56,6 +56,10 @@ int main() {
         nn->printTargetToConsole();
         cout << endl;
     }
+
+    // Test: Save weights to file after training
+    nn->saveWeights("weights_test.csv");
+    std::cout << "Weights saved to weights_test.csv" << std::endl;
 
     delete nn;
     return 0;

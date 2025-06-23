@@ -31,6 +31,14 @@ public:
 
     ~NeuralNetwork();
 
+    void train(
+        vector<double> input,
+        vector<double> target,
+        double bias,
+        double learningRate,
+        double momentum
+    );
+
     // Setters
     void setCurrentInput(std::vector<double> input);
     void setCurrentTarget(std::vector<double> target);
@@ -74,6 +82,9 @@ public:
     void printOutputToConsole();
     void printTargetToConsole();
     void printHistoricalErrors();
+
+    // Save weights to file (stub)
+    void saveWeights(const std::string& filename);
 
     // Public data
     int topologySize;

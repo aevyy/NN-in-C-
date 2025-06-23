@@ -1,6 +1,7 @@
 #include "../../headers/NeuralNetwork.h"
 
 void NeuralNetwork::backPropagation() {
+
     std::vector <Matrix *> newWeights;
     int outputLayerIndex = this->layers.size()-1;
 
@@ -20,7 +21,6 @@ void NeuralNetwork::backPropagation() {
 
     // Calculating weight deltas
     Matrix deltaWeights         = (gradients.transpose() * activatedHidden).transpose();
-
     // Creating updated weights
     Matrix* newOutputWeights    = new Matrix(outputWeights->getNumRows(),
                                             outputWeights->getNumCols(),
