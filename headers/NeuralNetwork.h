@@ -32,8 +32,8 @@ public:
     ~NeuralNetwork();
 
     void train(
-        vector<double> input,
-        vector<double> target,
+        std::vector<double> input,
+        std::vector<double> target,
         double bias,
         double learningRate,
         double momentum
@@ -96,7 +96,6 @@ public:
 private:
     // Topology represents the number of elements (neurons) in each layer
     std::vector<int> topology;
-    int topologySize;
     std::vector<Layer *>    layers;
     std::vector<Matrix *>   weightMatrices;
     std::vector<Matrix *>   gradientMatrices;

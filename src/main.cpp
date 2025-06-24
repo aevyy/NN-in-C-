@@ -9,58 +9,38 @@ using namespace std;
 
 int main() {
 
-    const int inputSize = 4;
-    const int targetSize = 4;
-    const string path = "../src/test_data.csv";
+    vector<double> input{0.2,0.5,0.1};
+    vector<double> target{0.2,0.5,0.1};
 
-    // Loading samples from file
-    vector<utils::Sample> dataset = utils::DataLoader::fetchData(
-        path,
-        inputSize,
-        targetSize
-    );
+    double learningRate = 0.5;
+    double momentum = 1;
+    double bias = 1;
 
-    if (dataset.empty()) {
-        cerr << "No valid data loaded from file: "
-        << path << endl;
-    }
+    vector<int> topology{3, 2, 3};
 
-    // Defiining topology and activation functions
-    vector<int> topology = {4, 2, 4};
-    vector<ActivationType> activations = {SIGM,RELU,SIGM};
-    double learningRate = 0.9;
+    NeuralNetwork *n = new NeuralNetwork(topology);
+    n->setCurrentInput(input);
+    n->setCurrentTarget(target);
 
-    NeuralNetwork* nn = new NeuralNetwork(topology, RELU, SIGM, COST_MSE, 1, learningRate, 1);
 
-    int epochs = 1000;
-
-    for (int i = 0; i < epochs; i++) {
+    for (int i = 0; i < 10000; i++) {
         cout << "EPOCH: " << i + 1 << endl;
+        n -> train(
+            input,
+            target,
+            bias,
+            learningRate,
+            momentum
+        );
 
-        for (const auto& [input, target] : dataset) {
-            nn->setCurrentInput(input);
-            nn->setCurrentTarget(target);
 
-            nn->feedForward();
-            nn->setErrors();
-            nn->backPropagation();
-        }
-
-        cout << "Total error: " << nn->getTotalError() << endl;
-
-        cout << "==============================" << endl;
-        cout << "OUTPUT: ";
-        nn->printOutputToConsole();
-        cout << endl << "==============================" << endl;
-        cout << "TARGET: ";
-        nn->printTargetToConsole();
-        cout << endl;
+        cout << "OUTPUT: \n";
+        n->printOutputToConsole();
+        cout << "\nTarget: \n";
+        n->printTargetToConsole();
     }
+    n->printHistoricalErrors();
 
-    // Test: Save weights to file after training
-    nn->saveWeights("weights_test.csv");
-    std::cout << "Weights saved to weights_test.csv" << std::endl;
 
-    delete nn;
     return 0;
 }
