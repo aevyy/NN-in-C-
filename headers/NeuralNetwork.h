@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm> // just to use std::reverse().
+#include <fstream>  // For weights IO
 #include "Neuron.h"
 #include "Layer.h"
 #include "Matrix.h"

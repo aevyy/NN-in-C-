@@ -14,16 +14,16 @@ int main() {
 
     double learningRate = 0.5;
     double momentum = 1;
-    double bias = 1;
+    double bias = 0.5;
 
-    vector<int> topology{3, 2, 3};
+    vector<int> topology{3, 20, 40, 3, 2, 3};
 
     NeuralNetwork *n = new NeuralNetwork(topology);
     n->setCurrentInput(input);
     n->setCurrentTarget(target);
 
 
-    for (int i = 0; i < 10000; i++) {
+    for (int i = 0; i < 2000; i++) {
         cout << "EPOCH: " << i + 1 << endl;
         n -> train(
             input,
@@ -38,8 +38,10 @@ int main() {
         n->printOutputToConsole();
         cout << "\nTarget: \n";
         n->printTargetToConsole();
+
+        cout << "ERROR: " << n->getTotalError() << endl;
     }
-    n->printHistoricalErrors();
+    // n->printHistoricalErrors();
 
 
     return 0;
