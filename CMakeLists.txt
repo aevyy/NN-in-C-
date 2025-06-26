@@ -17,7 +17,7 @@ include_directories(
     headers/Layer
     headers/NeuralNetwork
     headers/utils/DataLoader
-    
+    headers/json
 )
 
 # The executable

@@ -1,48 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
-#include "../headers/Neuron.h"
+#include <string>
+#include "../headers/json.hpp"
 #include "../headers/NeuralNetwork.h"
 #include "../headers/utils/DataLoader.h"
 
 
-using namespace std;
-
-int main() {
-
-    vector<double> input{0.2,0.5,0.1};
-    vector<double> target{0.2,0.5,0.1};
-
-    double learningRate = 0.5;
-    double momentum = 1;
-    double bias = 0.5;
-
-    vector<int> topology{3, 20, 40, 3, 2, 3};
-
-    NeuralNetwork *n = new NeuralNetwork(topology);
-    n->setCurrentInput(input);
-    n->setCurrentTarget(target);
-
-
-    for (int i = 0; i < 2000; i++) {
-        cout << "EPOCH: " << i + 1 << endl;
-        n -> train(
-            input,
-            target,
-            bias,
-            learningRate,
-            momentum
-        );
-
-
-        cout << "OUTPUT: \n";
-        n->printOutputToConsole();
-        cout << "\nTarget: \n";
-        n->printTargetToConsole();
-
-        cout << "ERROR: " << n->getTotalError() << endl;
-    }
-    // n->printHistoricalErrors();
-
-
+int main(int argc, char** argv) {
     return 0;
 }

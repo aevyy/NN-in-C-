@@ -7,16 +7,19 @@
 #include <vector>
 #include <string>
 
-namespace utils {
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <assert.h>
 
-    using Sample = std::pair<std::vector<double>, std::vector<double>>;
+using namespace std;
 
-    class DataLoader {
-    public:
-        // Loads a CSV file
-        static std::vector< Sample > fetchData(
-                const std::string& path,
-                int inputSize,
-                int targetSize );
-    };
+namespace utils
+{
+  class Misc
+  {
+  public:
+    static vector< vector<double> > fetchData(string path);
+  };
 }
