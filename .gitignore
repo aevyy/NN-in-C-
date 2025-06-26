@@ -13,6 +13,10 @@
 *.tlog
 *.lastbuildstate
 
+# Train/Test
+train.json
+test.json
+
 # CMake generated files
 CMakeFiles/
 CMakeCache.txt

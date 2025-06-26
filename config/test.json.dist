@@ -1,0 +1,8 @@
+{
+    "_comment": "This is a template config file. Replace the paths with absolute/relative paths on your local machine before running.",
+
+    "topology": [625, 100, 30, 100, 625],
+    "bias": 1.0,
+    "testFile": "data/test.csv",
+    "weightsFile": "weights/autoencoder_weights.json"
+}
