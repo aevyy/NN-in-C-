@@ -48,7 +48,7 @@ Matrix Matrix::duplicate() const {
 double Matrix::generateRandomNumber() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(-.0001, .0001);
+    std::uniform_real_distribution<> dis(-0.5, 0.5);  // Much larger range!
 
     return dis(gen);
 }

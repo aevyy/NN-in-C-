@@ -38,8 +38,8 @@ void NeuralNetwork::setErrorMSE() {
         double prediction = outputNeurons.at(i)->getActivatedVal();
 
         double diff = prediction - target;
-        errors.at(i) = diff * diff;     // Squared error
-        derivedErrors.at(i) = diff;     // Derivative to use in back prop
+        errors.at(i) = diff * diff;         // Squared error (always positive)
+        derivedErrors.at(i) = 2.0 * diff;   // Proper MSE derivative: 2(pred - target)
         this->error += errors.at(i);
     }
 

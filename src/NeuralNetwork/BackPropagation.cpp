@@ -9,8 +9,8 @@ void NeuralNetwork::backPropagation() {
     Matrix derivedOutput = layers[outputLayerIndex]->matrixifyDerivedVals();
     Matrix gradients(1, derivedOutput.getNumCols(), false);
     
-    for (int i = 0; i < this->errors.size(); i++) {
-        double gradient = derivedOutput.getValue(0, i) * errors[i];
+    for (int i = 0; i < this->derivedErrors.size(); i++) {
+        double gradient = derivedOutput.getValue(0, i) * derivedErrors[i];
         gradients.setValue(0, i, gradient);
     }
 
