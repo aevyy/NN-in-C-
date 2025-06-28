@@ -84,8 +84,10 @@ public:
     void printTargetToConsole();
     void printHistoricalErrors();
 
-    // Save weights to file (stub)
+    // Save weights to file (CSV format)
     void saveWeights(const std::string& filename);
+    // Load weights from file (CSV format)
+    void loadWeights(const std::string& filename);
 
     // Public data
     int topologySize;
