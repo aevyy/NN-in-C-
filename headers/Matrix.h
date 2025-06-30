@@ -30,6 +30,10 @@ public:
     Matrix operator*(const Matrix& that) const; // this * that (returns new matrix)
     Matrix& operator*=(const Matrix& that);     // this *= that (modifies this)
 
+    // Zavier/He initialization
+    void initializeXavier(int numInputs, int numOutputs);
+    void initializeHe(int numInputs);
+
 private:
     double generateRandomNumber();
 

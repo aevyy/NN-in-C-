@@ -48,9 +48,40 @@ Matrix Matrix::duplicate() const {
 double Matrix::generateRandomNumber() {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(-0.5, 0.5);  // Much larger range!
+    std::uniform_real_distribution<> dis(-0.5, 0.5);
 
     return dis(gen);
+}
+
+void Matrix::initializeXavier(int numInputs, int numOutputs) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    double variance = 2.0 / (numInputs + numOutputs);
+    double stddev   = sqrt(variance);
+    std::normal_distribution <double> dist(0.0, stddev);
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            values[i][j] = dist(gen);
+        }
+    }
+}
+
+void Matrix::initializeHe(int numInputs) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    double variance = 2.0 / numInputs;
+    double stddev   = sqrt(variance);
+
+    std::normal_distribution<double> dist(0.0, stddev);
+
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
+            values[i][j] = dist(gen);
+        }
+    }
 }
 
 void Matrix::printToConsole() const {

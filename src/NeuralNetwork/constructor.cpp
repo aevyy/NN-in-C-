@@ -32,10 +32,18 @@ NeuralNetwork::NeuralNetwork(
         this->layers.push_back(l);
     }
 
-    // Creating the weight matrices between each pair of layers
+    // Creating the weight matrices between each pair of layers with proper initialization
     for (int i = 0; i < (topologySize - 1); i++) {
-        // Matrix dimentions: current layer size * next layer size
-        Matrix *weight = new Matrix(topology.at(i), topology.at(i+1), true);
+        // Matrix dimensions: current layer size * next layer size
+        int inputSize = topology.at(i);      // Previous layer neurons
+        int outputSize = topology.at(i+1);   // Current layer neurons
+        
+        // creating an empty matrix
+        Matrix *weight = new Matrix(inputSize, outputSize, false);
+        
+        // He initialization default
+        weight->initializeHe(inputSize);
+        
         this->weightMatrices.push_back(weight);
     }
 
@@ -85,10 +93,30 @@ NeuralNetwork::NeuralNetwork (
         this->layers.push_back(l);
     }
 
-    // Creating the weight matrices between each pair of layers
+    // Creating the weight matrices between each pair of layers with SMART initialization
     for (int i = 0; i < (topologySize - 1); i++) {
-        // Matrix dimentions: current layer size * next layer size
-        Matrix *weight = new Matrix(topology.at(i), topology.at(i+1), true);
+        // Matrix dimensions: current layer size * next layer size
+        int inputSize = topology.at(i);      // Previous layer neurons
+        int outputSize = topology.at(i+1);   // Current layer neurons
+        
+        // Creating an empty matrix
+        Matrix *weight = new Matrix(inputSize, outputSize, false);
+        
+        // Initialization based on layer type and activation function
+        if (i == (topologySize - 2)) {
+            // OUTPUT LAYER: Xavier initialization (works great with Sigmoid)
+            weight->initializeXavier(inputSize, outputSize);
+        } else {
+            // HIDDEN LAYERS
+            if (this->hiddenActivationType == RELU) {
+                // ReLU activation: He initialization
+                weight->initializeHe(inputSize);
+            } else {
+                // Sigmoid/Tanh activation: Xavier initialization
+                weight->initializeXavier(inputSize, outputSize);
+            }
+        }
+        
         this->weightMatrices.push_back(weight);
     }
 
