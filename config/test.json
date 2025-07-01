@@ -1,6 +1,0 @@
-{
-  "topology": [625, 100, 30, 100, 625],
-  "bias": 1.0,
-  "testFile": "D:/nd_ee&ss/Projects/Neural Networks CPP/data/test.csv",
-  "weightsFile": "D:/nd_ee&ss/Projects/Neural Networks CPP/weights/aevy_autoencoder_weights.json"
-}

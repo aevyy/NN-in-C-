@@ -14,8 +14,8 @@
 *.lastbuildstate
 
 # Train/Test
-train.json
-test.json
+config/train.json
+config/test.json
 
 # CMake generated files
 CMakeFiles/
