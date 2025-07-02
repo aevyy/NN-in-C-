@@ -5,7 +5,7 @@ namespace NetworkTester {
     void testWithConfig() {
         std::cout << ">> Testing Neural Network...\n" << std::endl;
         
-        // Load config
+        // Loading config
         std::ifstream file("config/test.json");
         if (!file.is_open()) {
             std::cout << "ERROR: Can't find config/test.json" << std::endl;
@@ -16,7 +16,7 @@ namespace NetworkTester {
         file >> config;
         file.close();
         
-        // Setup from config
+        // Setting up from config
         auto topology = config["topology"].get<std::vector<int>>();
         std::string dataFile = config["testFile"];
         std::string weightsFile = config["weightsFile"];
@@ -26,7 +26,7 @@ namespace NetworkTester {
         std::cout << "Data: " << dataFile << std::endl;
         std::cout << "Weights: " << weightsFile << std::endl;
         
-        // Load test data
+        // Loading test data
         auto data = utils::Misc::fetchData(dataFile);
         if (data.empty()) {
             std::cout << "ERROR: No test data found!" << std::endl;
@@ -35,15 +35,15 @@ namespace NetworkTester {
         
         std::cout << "Loaded " << data.size() << " test samples (" << data[0].size() << " features each)" << std::endl;
         
-        // Adjust topology for data size
+        // Adjusting topology for data size
         if (data[0].size() != topology[0]) {
             topology[0] = topology.back() = data[0].size();
         }
         
-        // Create network
+        // Creating a network
         NeuralNetwork nn(topology, RELU, SIGM, COST_MSE, bias, 0.05, 1.0);
         
-        // Try to load weights
+        // Lets try to load weights
         std::ifstream weightsCheck(weightsFile);
         if (weightsCheck.is_open()) {
             weightsCheck.close();
@@ -55,7 +55,7 @@ namespace NetworkTester {
         
         std::cout << "\nRunning tests..." << std::endl;
         
-        // Test all samples
+        // Testing all samples
         double totalError = 0.0;
         for (size_t i = 0; i < data.size(); i++) {
             nn.setCurrentInput(data[i]);
@@ -64,7 +64,7 @@ namespace NetworkTester {
             nn.setErrors();
             totalError += nn.getTotalError();
             
-            // Show first few samples
+            // Lets show first few samples
             if (i < 3) showSample(data[i], nn, i + 1);
         }
         

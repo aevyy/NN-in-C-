@@ -32,7 +32,7 @@ namespace NetworkTrainer {
                 totalError += nn.getTotalError();
             }
             
-            // Show progress every 1000epochs
+            // Show progress every 1000 epochs
             if (epoch % 1000 == 0 || epoch == epochs-1) {
                 std::cout << "\nEpoch " << epoch+1 << "/" << epochs 
                          << " - Error: " << std::setprecision(4) << totalError/data.size() << std::endl;

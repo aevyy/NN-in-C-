@@ -11,13 +11,9 @@
 using json = nlohmann::json;
 
 namespace NetworkTester {
-    /**
-     * Test a neural network using configuration from test.json
-     */
+    // Test a neural network using configuration from test.json
     void testWithConfig();
     
-    /**
-     * Show test sample results
-     */
+    // Show test sample results
     void showSample(const std::vector<double>& input, class NeuralNetwork& network, int num);
 }

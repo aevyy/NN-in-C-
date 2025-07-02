@@ -13,7 +13,6 @@ using json = nlohmann::json;
 namespace NetworkTrainer {
     /**
      * Train a neural network using configuration from train.json
-     * Handles data loading, network creation, training loop, and weight saving
      */
     void trainWithConfig();
     
