@@ -11,13 +11,9 @@
 using json = nlohmann::json;
 
 namespace NetworkTrainer {
-    /**
-     * Train a neural network using configuration from train.json
-     */
+    // Train a neural network using configuration from train.json
     void trainWithConfig();
     
-    /**
-     * Show sample results from training data
-     */
+    // Show sample results from training data
     void showResults(const std::vector<std::vector<double>>& data, class NeuralNetwork& network);
 }

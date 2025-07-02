@@ -10,23 +10,15 @@
 using json = nlohmann::json;
 
 namespace NetworkDemo {
-    /**
-     * Run demo tests
-     */
+    // Run demo tests
     void runDemoTests();
     
-    /**
-     * Test basic network functionality
-     */
+    // Test basic network functionality
     void testBasicNetwork();
     
-    /**
-     * Test data loading
-     */
+    // Test data loading
     void testDataLoader();
     
-    /**
-     * Test configuration loading
-     */
+    // Test configuration loading
     void testConfigLoader();
 }
